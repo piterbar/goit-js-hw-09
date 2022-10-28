@@ -43,3 +43,5 @@ function createPromise(position, delay) {
     }, delay)
   })
 }
+
+//test load
