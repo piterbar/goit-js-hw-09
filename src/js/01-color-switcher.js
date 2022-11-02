@@ -22,7 +22,7 @@ function onStartBtnClick() {
     
     refs.startBtn.disabled = true;
     refs.stopBtn.disabled = false;
-} 
+}
 
 function onStopBtnClick() {
     clearInterval(timerId);
@@ -30,4 +30,4 @@ function onStopBtnClick() {
     refs.stopBtn.disabled = true;
 
 }
-//test load
+//test load 5

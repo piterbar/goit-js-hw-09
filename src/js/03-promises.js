@@ -1,47 +1,45 @@
-import "notiflix/dist/notiflix-3.2.5.min.css";
-import {Notify} from 'notiflix/build/notiflix-notify-aio';
+import Notiflix from 'notiflix';
 
-const refs = {
-  form: document.querySelector('form.form'),
+const formNew = document.querySelector('.form');
+
+formNew.addEventListener('submit', onSubmitForm);
+
+function onSubmitForm(event) {
+  event.preventDefault();
+  const form = new FormData(formNew);
+  const amount = Number(form.get('amount'));
+  const firstDelay = Number(form.get('delay'));
+  const step = Number(form.get('step'));
+  setTimeout(generatePromises, firstDelay, amount, step, firstDelay);
 };
 
-refs.form.addEventListener('submit', onSubmitForm)
-
-function getFormData(formRef) {
-  return [...formRef.elements]
-    .filter(it => it.hasAttribute('name'))
-    .reduce((acc, it) => ({
-      ...acc,
-      [it.getAttribute('name')]: Number(it.value),
-    }), {})
-}
-
-function onSubmitForm(e) {
-  e.preventDefault();
-  const {delay, step, amount} = getFormData(refs.form)
-  for (let i = 1; i <= amount; i++) {
-    const promise = i === 0 ? createPromise(i, delay) : createPromise(i, delay + i * step);
-    promise
-      .then(({position, delay}) => {
-        Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({position, delay}) => {
-        Notify.failure(`Rejected promise ${position} in ${delay}ms`);
-      });
+function generatePromises(amount, step, firstDelay) {
+  for (let i = 0; i < amount; i += 1) {
+    createPromise(i + 1, step * i)
+    .then(({ position, delay }) => {
+       Notiflix.Notify.success(
+        `✅ Fulfilled promise ${position} in ${delay + firstDelay}ms`
+      );
+    })
+    .catch(({ position, delay }) => {
+      Notiflix.Notify.failure(
+        `❌ Rejected promise ${position} in ${delay + firstDelay}ms`
+      );
+    });
   }
 }
 
 function createPromise(position, delay) {
+  const shouldResolve = Math.random() > 0.3;
   return new Promise((resolve, reject) => {
-    const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
-        resolve({position, delay})
+        resolve({ position, delay });
       } else {
-        reject({position, delay})
+        reject({ position, delay });
       }
-    }, delay)
-  })
+    }, delay);
+  });
 }
 
-//test load
+//test load 10
