@@ -14,10 +14,8 @@ refs.startBtn.addEventListener('click', onStartBtnClick);
 refs.stopBtn.addEventListener('click', onStopBtnClick);
 
 function onStartBtnClick() {
-    refs.body.style.backgroundColor = getRandomHexColor();
     timerId = setInterval(() => {
      refs.body.style.backgroundColor = getRandomHexColor();
-
     }, 1000);
     
     refs.startBtn.disabled = true;
