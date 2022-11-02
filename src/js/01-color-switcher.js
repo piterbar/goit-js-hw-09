@@ -8,6 +8,8 @@ const refs = {
     body: document.querySelector("body"),
 }
 
+let timerId = null
+
 refs.stopBtn.disabled = true;
 
 refs.startBtn.addEventListener('click', onStartBtnClick);
@@ -16,7 +18,7 @@ refs.stopBtn.addEventListener('click', onStopBtnClick);
 function onStartBtnClick() {
     timerId = setInterval(() => {
      refs.body.style.backgroundColor = getRandomHexColor();
-    }, 1000);
+    }, 1000)
     
     refs.startBtn.disabled = true;
     refs.stopBtn.disabled = false;
