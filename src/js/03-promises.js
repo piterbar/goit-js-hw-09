@@ -1,4 +1,5 @@
 import Notiflix from 'notiflix';
+import "notiflix/dist/notiflix-3.2.5.min.css";
 
 const formNew = document.querySelector('.form');
 
@@ -42,4 +43,4 @@ function createPromise(position, delay) {
   });
 }
 
-//test load 10
+//test load 11
